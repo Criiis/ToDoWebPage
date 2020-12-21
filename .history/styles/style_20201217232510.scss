@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+$darkColor: #333334;
+
+body {
+	margin: 0;
+	padding: 0;
+	color: white;
+	font-family: 'Roboto Mono', monospace;
+	background-color: $darkColor;
+}
+

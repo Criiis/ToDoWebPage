@@ -1,0 +1,43 @@
+const btn = document.querySelector('.add-btn');
+const inputBox = document.getElementById('to-do');
+const toDoList = document.querySelector('.to-do-list');
+// localStorage.setItem(names);
+
+btn.addEventListener('click',function (e){
+	e.preventDefault();
+	let liContainer = document.createElement("li");
+	let inputValue = document.createTextNode(inputBox.value);
+    inputBox.value = ''; //reset the input value after adding the item to list
+
+	liContainer.appendChild(inputValue);
+	toDoList.appendChild(liContainer);
+});
+
+
+// Check if we already have an array in local storage.
+var x = localStorage.getItem("names");
+// If not, create the array.
+if (x === null) x = [];
+// If so, decode the array. 
+else x = JSON.parse(x);
+// Add our new item. 
+x.push("value 1");
+// Encode the array.
+x = JSON.stringify(x);
+// Add back to LocalStorage. 
+localStorage.setItem("myArray", x);
+
+
+
+
+// console.log(storedNames);
+//create a to do list using local storage cookies!
+
+//crate a list of completed
+//and a list with the ones i have to complete
+// storage this in local storage
+
+
+
+
+//https://www.youtube.com/watch?v=Ttf3CEsEwMQ&ab_channel=DevEd //ideia from this video
