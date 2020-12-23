@@ -3,33 +3,63 @@
 var btn = document.querySelector('.add-btn');
 var inputBox = document.getElementById('to-do');
 var toDoList = document.querySelector('.to-do-list');
+var singleItem = toDoList.querySelector('li');
 var listToDo = [];
 
-if (localStorage.getItem('listToDo') === null) {
-	localStorage.setItem("listToDo", JSON.stringify(listToDo));
-	// create the localstorage if it does not exist
-} else {
-	listToDo = JSON.parse(localStorage.getItem('listToDo'));
-	// if it does exist take all the value and put inside of the listTodo array
+//events
+createAndCheckLocalStorageArray();
+btn.addEventListener('click', addItemToList);
+toDoList.addEventListener('click', deleteItems);
+
+// function to append to
+function appendFunction(containerDiv, value, appendTo) {
+	var container = document.createElement(containerDiv);
+	container.innerHTML = value;
+	appendTo.appendChild(container);
 }
 
-btn.addEventListener('click', function (e) {
+// load the page create the local storage array
+function createAndCheckLocalStorageArray() {
+	if (localStorage.getItem('listToDo') === null) {
+		localStorage.setItem("listToDo", JSON.stringify(listToDo));
+		// create the localstorage if it does not exist
+	} else {
+		listToDo = JSON.parse(localStorage.getItem('listToDo'));
+		// if it does exist take all the value and put inside of the listTodo array
+		//apend the to do list from the array to the html
+		listToDo.forEach(function (e) {
+			appendFunction('li', e, toDoList);
+		});
+	}
+}
+
+//add the todo item to the list
+function addItemToList(e) {
 	e.preventDefault();
 	var inputValue = inputBox.value;
-
 	listToDo.push(inputValue);
+
 	localStorage.setItem('listToDo', JSON.stringify(listToDo));
-	inputBox.value = '';
-
-	console.log(inputValue);
+	appendFunction('li', inputValue, toDoList);
 	console.log(listToDo);
-});
+	inputBox.value = '';
+};
 
-//create a to do list using local storage cookies!
+//delete to do items list
+function deleteItems(e) {
+	var item = e.target;
+	var index = listToDo.indexOf(item.innerHTML);
 
-//crate a list of completed
-//and a list with the ones i have to complete
-// storage this in local storage
+	console.log(item.innerHTML);
+	if (item.tagName === 'LI') {
+		item.remove();
+		listToDo.splice(index, 1);
+		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+	}
+}
 
+//next steps 
 
-//https://www.youtube.com/watch?v=Ttf3CEsEwMQ&ab_channel=DevEd //ideia from this video
+//create random gradients when you load the page the background should be diferent 
+//on top of it create a dark or light theme and store the information with local cookies
+//give nice style this

@@ -1,45 +1,75 @@
 const btn = document.querySelector('.add-btn');
 const inputBox = document.getElementById('to-do');
 const toDoList = document.querySelector('.to-do-list');
-var listToDo = [];
+let singleItem = toDoList.querySelector('li');
+let listToDo = [];
+
+//events
+createAndCheckLocalStorageArray();
+btn.addEventListener('click', addItemToList);
+toDoList.addEventListener('click', deleteItems);
 
 
 
-if(localStorage.getItem('listToDo') === null) {
-	localStorage.setItem("listToDo", JSON.stringify(listToDo));
-	// create the localstorage if it does not exist
-} else {
-	listToDo = JSON.parse(localStorage.getItem('listToDo'));
-	// if it does exist take all the value and put inside of the listTodo array
+
+// function to append to
+function appendFunction(containerDiv, value, appendTo) {
+	let container = document.createElement(containerDiv);
+	container.innerHTML = value;
+	appendTo.appendChild(container);
+}
+
+
+// load the page create the local storage array
+function createAndCheckLocalStorageArray() {
+	if(localStorage.getItem('listToDo') === null) {
+		localStorage.setItem("listToDo", JSON.stringify(listToDo));
+		// create the localstorage if it does not exist
+	} else {
+		listToDo = JSON.parse(localStorage.getItem('listToDo'));
+		// if it does exist take all the value and put inside of the listTodo array
+		//apend the to do list from the array to the html
+		listToDo.forEach(e => {
+			appendFunction('li', e, toDoList);
+		});
+	}
+}
+
+
+//add the todo item to the list
+function addItemToList(e){
+	e.preventDefault();
+	let inputValue = inputBox.value;
+	listToDo.push(inputValue);
+
+	localStorage.setItem('listToDo', JSON.stringify(listToDo));
+	appendFunction('li', inputValue, toDoList);
+	console.log(listToDo);
+	inputBox.value = '';
+
+};
+
+
+//delete to do items list
+function deleteItems(e) {
+	let item = e.target;
+	const index = listToDo.indexOf(item.innerHTML);
+
+	console.log(item.innerHTML);
+	if (item.tagName === 'LI') {
+		item.remove();
+		listToDo.splice(index, 1);
+		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+	}
+
 }
 
 
 
-btn.addEventListener('click',function (e){
-	e.preventDefault();
-	let inputValue = inputBox.value;
-
-	
-
-	listToDo.push(inputValue);
-	localStorage.setItem('listToDo', JSON.stringify(listToDo));
-	inputBox.value = '';
 
 
+//next steps 
 
-	console.log(inputValue);
-	console.log(listToDo)
-});
-
-
-
-//create a to do list using local storage cookies!
-
-//crate a list of completed
-//and a list with the ones i have to complete
-// storage this in local storage
-
-
-
-
-//https://www.youtube.com/watch?v=Ttf3CEsEwMQ&ab_channel=DevEd //ideia from this video
+//create random gradients when you load the page the background should be diferent 
+//on top of it create a dark or light theme and store the information with local cookies
+//give nice style this
