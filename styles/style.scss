@@ -1,11 +1,31 @@
+@import 'variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
-$darkColor: #333334;
 
 body {
 	margin: 0;
 	padding: 0;
 	color: white;
 	font-family: 'Roboto Mono', monospace;
-	background-color: $darkColor;
+	background: linear-gradient(90deg, $gradientOneColor2 30%, $gradientOneColor1 100%);
+	* {
+		box-sizing: border-box;
+	}
 }
 
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	align-content: center;
+	margin-top: 50px;
+	.inner {
+		max-width: 450px;
+		width: 100%;
+		padding: 0 15px;
+	}
+}
+
+@import 'header.scss';
+@import 'form.scss';
+@import 'list.scss';
