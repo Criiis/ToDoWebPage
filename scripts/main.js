@@ -9,7 +9,12 @@ createAndCheckLocalStorageArray();
 btn.addEventListener('click', addItemToList);
 toDoList.addEventListener('click', deleteItems);
 
-
+inputBox.addEventListener("keydown", function(e) {
+	if (e.key === "Enter") {
+		e.preventDefault();
+		addItemToList(e);
+	}
+});
 
 
 // function to append to
@@ -65,11 +70,11 @@ function deleteItems(e) {
 }
 
 
-
-
-
 //next steps 
 
 //create random gradients when you load the page the background should be diferent 
 //on top of it create a dark or light theme and store the information with local cookies
 //give nice style this
+
+
+//https://static.collectui.com/shots/3410657/salesforce-task-manager-web-app-large
