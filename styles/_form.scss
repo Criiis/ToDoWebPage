@@ -4,15 +4,18 @@ form {
 
 
     input[type=text] {
-        width: 100%;
+        width: calc(100% - 35px);
         appearance: none;
         border: none;
         background-color: transparent;
         border-bottom: 1px solid $darkColor;
         margin: 0;
         font-size: 30px;
+        border-radius: 0;
+        outline: none;
         padding: 0;
         color: white;
+
         &:focus {
             outline: none;
         }
@@ -25,9 +28,11 @@ form {
         margin: 0;
         border: none;
         cursor: pointer;
+        text-align: center;
         &.btn-primary {
             background-color: $darkColor;
             color: $iconColor;
+            width: 35px;
             transition: color 0.2s ease-in-out;
             &:hover {
                 color:#58edb3;
