@@ -13,8 +13,11 @@ form {
         font-size: 30px;
         border-radius: 0;
         outline: none;
-        padding: 0;
+        padding: 5px 5px 0px 5px;
         color: white;
+        &::placeholder {
+            color: white;
+        }
 
         &:focus {
             outline: none;

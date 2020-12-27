@@ -20,9 +20,21 @@ inputBox.addEventListener("keydown", function (e) {
 
 // function to append to
 function appendFunction(containerDiv, value, appendTo) {
+	var newDiv = document.createElement('div');
+	newDiv.classList.add('item');
+
+	var what = document.createElement('IMG');
+	what.setAttribute('src', './images/trash.svg');
+	what.setAttribute('alt', 'Delete');
+	what.setAttribute("width", "20px");
+
 	var container = document.createElement(containerDiv);
 	container.innerHTML = value;
-	appendTo.appendChild(container);
+
+	newDiv.appendChild(container); //this creates the <li>....</li>
+	newDiv.appendChild(what);
+
+	appendTo.appendChild(newDiv);
 }
 
 // load the page create the local storage array
@@ -55,13 +67,20 @@ function addItemToList(e) {
 //delete to do items list
 function deleteItems(e) {
 	var item = e.target;
-	var index = listToDo.indexOf(item.innerHTML);
+	var index = listToDo.indexOf(item.previousElementSibling.innerHTML);
 
-	console.log(item.innerHTML);
-	if (item.tagName === 'LI') {
-		item.remove();
+	// console.log(item.tagName);
+	// console.log(item.parentNode);
+	// console.log(item.previousElementSibling.innerHTML);
+	console.log(index);
+
+	// console.log(item.innerHTML);
+
+	if (item.tagName === 'IMG') {
+		item.parentNode.remove();
 		listToDo.splice(index, 1);
 		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+		console.log(listToDo);
 	}
 }
 
