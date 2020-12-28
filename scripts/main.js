@@ -61,12 +61,19 @@ function createAndCheckLocalStorageArray() {
 function addItemToList(e){
 	e.preventDefault();
 	let inputValue = inputBox.value;
-	listToDo.push(inputValue);
+	console.log(inputValue);
 
-	localStorage.setItem('listToDo', JSON.stringify(listToDo));
-	appendFunction('li', inputValue, toDoList);
-	console.log(listToDo);
-	inputBox.value = '';
+	if (inputValue !== '' && inputValue !== null && inputValue !== undefined) {
+		listToDo.push(inputValue);
+		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+		appendFunction('li', inputValue, toDoList);
+		console.log(listToDo);
+		inputBox.value = '';
+		toDoList.querySelector('.error').classList.remove('open');
+	} else {
+		console.log('ups!');
+		toDoList.querySelector('.error').classList.add('open');
+	}
 
 };
 
@@ -75,13 +82,6 @@ function addItemToList(e){
 function deleteItems(e) {
 	let item = e.target;
 	const index = listToDo.indexOf(item.previousElementSibling.innerHTML);
-
-	// console.log(item.tagName);
-	// console.log(item.parentNode);
-	// console.log(item.previousElementSibling.innerHTML);
-	console.log(index);
-
-	// console.log(item.innerHTML);
 
 	if (item.tagName === 'IMG') {
 		item.parentNode.remove();

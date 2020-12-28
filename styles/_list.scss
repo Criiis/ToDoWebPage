@@ -1,17 +1,27 @@
 ul.to-do-list {
-    // list-style: none;
     padding: 20px 10px;
     margin: 0;
     background-color: rgba(0,0,0,0.5);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     list-style: none;
+    position: relative;
+    .error {
+        font-size: 11px;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        display: none;
+        &.open {
+            display: block;
+        }
+    }
     .item {
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin: 5px 0;
+        margin: 7px 0;
         li {
             word-break: break-all;
         }

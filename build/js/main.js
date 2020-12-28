@@ -56,25 +56,25 @@ function createAndCheckLocalStorageArray() {
 function addItemToList(e) {
 	e.preventDefault();
 	var inputValue = inputBox.value;
-	listToDo.push(inputValue);
+	console.log(inputValue);
 
-	localStorage.setItem('listToDo', JSON.stringify(listToDo));
-	appendFunction('li', inputValue, toDoList);
-	console.log(listToDo);
-	inputBox.value = '';
+	if (inputValue !== '' && inputValue !== null && inputValue !== undefined) {
+		listToDo.push(inputValue);
+		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+		appendFunction('li', inputValue, toDoList);
+		console.log(listToDo);
+		inputBox.value = '';
+		toDoList.querySelector('.error').classList.remove('open');
+	} else {
+		console.log('ups!');
+		toDoList.querySelector('.error').classList.add('open');
+	}
 };
 
 //delete to do items list
 function deleteItems(e) {
 	var item = e.target;
 	var index = listToDo.indexOf(item.previousElementSibling.innerHTML);
-
-	// console.log(item.tagName);
-	// console.log(item.parentNode);
-	// console.log(item.previousElementSibling.innerHTML);
-	console.log(index);
-
-	// console.log(item.innerHTML);
 
 	if (item.tagName === 'IMG') {
 		item.parentNode.remove();
