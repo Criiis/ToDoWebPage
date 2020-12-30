@@ -3,14 +3,16 @@
 var btn = document.querySelector('.add-btn');
 var inputBox = document.getElementById('to-do');
 var toDoList = document.querySelector('.to-do-list');
-var singleItem = toDoList.querySelector('li');
+
 var listToDo = [];
 
 //events
 createAndCheckLocalStorageArray();
 btn.addEventListener('click', addItemToList);
 toDoList.addEventListener('click', deleteItems);
+toDoList.addEventListener('click', editItems);
 
+//keyevents
 inputBox.addEventListener("keydown", function (e) {
 	if (e.key === "Enter") {
 		e.preventDefault();
@@ -23,17 +25,22 @@ function appendFunction(containerDiv, value, appendTo) {
 	var newDiv = document.createElement('div');
 	newDiv.classList.add('item');
 
-	var what = document.createElement('IMG');
-	what.setAttribute('src', './images/trash.svg');
-	what.setAttribute('alt', 'Delete');
-	what.setAttribute("width", "20px");
+	var deleteIcon = document.createElement('IMG');
+	deleteIcon.setAttribute('src', './images/trash.svg');
+	deleteIcon.setAttribute('alt', 'Delete');
+	deleteIcon.setAttribute("width", "20px");
+
+	var editIcon = document.createElement('IMG');
+	editIcon.setAttribute('src', './images/trash.svg');
+	editIcon.setAttribute('alt', 'Edit');
+	editIcon.setAttribute("width", "20px");
 
 	var container = document.createElement(containerDiv);
 	container.innerHTML = value;
 
-	newDiv.appendChild(container); //this creates the <li>....</li>
-	newDiv.appendChild(what);
-
+	newDiv.appendChild(container);
+	newDiv.appendChild(deleteIcon);
+	newDiv.appendChild(editIcon);
 	appendTo.appendChild(newDiv);
 }
 
@@ -52,21 +59,18 @@ function createAndCheckLocalStorageArray() {
 	}
 }
 
-//add the todo item to the list
+//add the to do item to the list
 function addItemToList(e) {
 	e.preventDefault();
 	var inputValue = inputBox.value;
-	console.log(inputValue);
 
 	if (inputValue !== '' && inputValue !== null && inputValue !== undefined) {
 		listToDo.push(inputValue);
 		localStorage.setItem('listToDo', JSON.stringify(listToDo));
 		appendFunction('li', inputValue, toDoList);
-		console.log(listToDo);
 		inputBox.value = '';
 		toDoList.querySelector('.error').classList.remove('open');
 	} else {
-		console.log('ups!');
 		toDoList.querySelector('.error').classList.add('open');
 	}
 };
@@ -74,21 +78,32 @@ function addItemToList(e) {
 //delete to do items list
 function deleteItems(e) {
 	var item = e.target;
-	var index = listToDo.indexOf(item.previousElementSibling.innerHTML);
 
-	if (item.tagName === 'IMG') {
+	if (item.tagName === 'IMG' && item.alt === 'Delete') {
+		var index = listToDo.indexOf(item.previousElementSibling.innerHTML);
 		item.parentNode.remove();
 		listToDo.splice(index, 1);
 		localStorage.setItem('listToDo', JSON.stringify(listToDo));
-		console.log(listToDo);
 	}
 }
 
-//next steps 
+//edit function
+function editItems(event) {
+	var EditBTN = event.target;
+	var toDoItem = EditBTN.parentNode.childNodes[0];
 
-//create random gradients when you load the page the background should be diferent 
-//on top of it create a dark or light theme and store the information with local cookies
-//give nice style this
+	var li = EditBTN.closest('.item');
+	var nodes = Array.from(li.closest('ul').children);
+	var index = nodes.indexOf(li) - 1;
 
-
-//https://static.collectui.com/shots/3410657/salesforce-task-manager-web-app-large
+	if (EditBTN.id === 'editable') {
+		toDoItem.contentEditable = "false";
+		EditBTN.setAttribute("id", "");
+		listToDo[index] = toDoItem.innerHTML;
+		localStorage.setItem('listToDo', JSON.stringify(listToDo));
+	} else if (EditBTN.tagName === 'IMG' && EditBTN.alt === 'Edit') {
+		toDoItem.contentEditable = "true";
+		toDoItem.focus();
+		EditBTN.setAttribute("id", "editable");
+	}
+}
