@@ -25,22 +25,18 @@ function appendFunction(containerDiv, value, appendTo) {
 	var newDiv = document.createElement('div');
 	newDiv.classList.add('item');
 
-	var deleteIcon = document.createElement('IMG');
-	deleteIcon.setAttribute('src', './images/trash.svg');
-	deleteIcon.setAttribute('alt', 'Delete');
-	deleteIcon.setAttribute("width", "20px");
+	var deleteIcon = document.createElement('I');
+	deleteIcon.classList.add('fas', 'fa-trash');
 
-	var editIcon = document.createElement('IMG');
-	editIcon.setAttribute('src', './images/trash.svg');
-	editIcon.setAttribute('alt', 'Edit');
-	editIcon.setAttribute("width", "20px");
+	var editIcon = document.createElement('I');
+	editIcon.classList.add('fas', 'fa-edit');
 
 	var container = document.createElement(containerDiv);
 	container.innerHTML = value;
 
 	newDiv.appendChild(container);
-	newDiv.appendChild(deleteIcon);
 	newDiv.appendChild(editIcon);
+	newDiv.appendChild(deleteIcon);
 	appendTo.appendChild(newDiv);
 }
 
@@ -79,29 +75,29 @@ function addItemToList(e) {
 function deleteItems(e) {
 	var item = e.target;
 
-	if (item.tagName === 'IMG' && item.alt === 'Delete') {
-		var index = listToDo.indexOf(item.previousElementSibling.innerHTML);
+	if (item.tagName === 'I' && item.classList[1] === 'fa-trash') {
+		var index = listToDo.indexOf(item.parentNode.childNodes[0].innerHTML);
 		item.parentNode.remove();
 		listToDo.splice(index, 1);
 		localStorage.setItem('listToDo', JSON.stringify(listToDo));
 	}
 }
 
-//edit function
+// edit function
 function editItems(event) {
 	var EditBTN = event.target;
-	var toDoItem = EditBTN.parentNode.childNodes[0];
-
-	var li = EditBTN.closest('.item');
-	var nodes = Array.from(li.closest('ul').children);
-	var index = nodes.indexOf(li) - 1;
+	var toDoItem = EditBTN.previousElementSibling;
 
 	if (EditBTN.id === 'editable') {
+		var li = EditBTN.closest('.item');
+		var nodes = Array.from(li.closest('ul').querySelectorAll('div.item'));
+		var index = nodes.indexOf(li);
+
 		toDoItem.contentEditable = "false";
-		EditBTN.setAttribute("id", "");
 		listToDo[index] = toDoItem.innerHTML;
+		EditBTN.setAttribute("id", "");
 		localStorage.setItem('listToDo', JSON.stringify(listToDo));
-	} else if (EditBTN.tagName === 'IMG' && EditBTN.alt === 'Edit') {
+	} else if (EditBTN.tagName === 'I' && EditBTN.classList[1] === 'fa-edit') {
 		toDoItem.contentEditable = "true";
 		toDoItem.focus();
 		EditBTN.setAttribute("id", "editable");
