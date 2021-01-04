@@ -1,9 +1,12 @@
 const btn = document.querySelector('.add-btn');
 const inputBox = document.getElementById('to-do');
 const toDoList = document.querySelector('.to-do-list');
-
-
 let listToDo = [];
+
+let gradientArray = ['gradient-1', 'gradient-2', 'gradient-3'];
+const random = Math.floor(Math.random() * gradientArray.length);
+
+document.body.classList.add(gradientArray[random]);
 
 
 //events

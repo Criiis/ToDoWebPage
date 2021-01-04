@@ -3,8 +3,12 @@
 var btn = document.querySelector('.add-btn');
 var inputBox = document.getElementById('to-do');
 var toDoList = document.querySelector('.to-do-list');
-
 var listToDo = [];
+
+var gradientArray = ['gradient-1', 'gradient-2', 'gradient-3'];
+var random = Math.floor(Math.random() * gradientArray.length);
+
+document.body.classList.add(gradientArray[random]);
 
 //events
 createAndCheckLocalStorageArray();

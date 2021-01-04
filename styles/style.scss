@@ -6,9 +6,18 @@ body {
 	padding: 0;
 	color: white;
 	font-family: 'Roboto Mono', monospace;
-	background: $gradientColor;
+	background: $gradientColor1;
 	min-width: 100vw;
 	min-height: 100vh;
+	&.gradient-1 {
+		background: $gradientColor1;
+	}
+	&.gradient-2 {
+		background: $gradientColor2;
+	}
+	&.gradient-3 {
+		background: $gradientColor3;
+	}
 	* {
 		box-sizing: border-box;
 	}
