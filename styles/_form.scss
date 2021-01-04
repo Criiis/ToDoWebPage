@@ -20,6 +20,16 @@ form {
         &::placeholder {
             color: white;
         }
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: #fff !important;
+        }
+        &:-webkit-autofill::first-line {
+            font-size: 23px !important;
+        }
 
         &:focus {
             outline: none;
