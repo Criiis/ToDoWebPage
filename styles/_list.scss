@@ -1,9 +1,6 @@
 ul.to-do-list {
-    padding: 20px 10px;
+    padding: 10px 5px;
     margin: 0;
-    background-color: rgba(0,0,0,0.5);
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     list-style: none;
     position: relative;
     .error {
@@ -21,27 +18,37 @@ ul.to-do-list {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 7px 0;
+        margin: 10px 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 5px -1px #000000;
+        padding: 10px;
+        border-radius: 5px;
         li {
             width: 78%;
-            font-size: 18px;
+            font-size: 16px;
             word-break: break-all;
             &:focus {
                 outline: 0;
-                border-bottom: 1px solid $darkColor;
+                border-bottom: 1px solid white;
             }
         }
         i {
-            font-size: 30px;
+            font-size: 20px;
             width: 10%;
-            text-align: center;
+            text-align: right;
             height: auto;
             transition: all 0.2s ease-in-out;
             &:hover {
-                color: $darkColor;
+                color: $iconColor;
             }
             &#editable {
                 color: $gradientOneColor2;
+            }
+
+            &.fa-trash {
+                &:hover {
+                    color: #bf4545;
+                }
             }
         }
     }
